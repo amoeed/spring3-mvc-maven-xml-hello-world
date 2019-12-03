@@ -9,15 +9,23 @@ pipeline {
         // This can be nexus3 or nexus2
         NEXUS_VERSION = "nexus3"
         // This can be http or https
-        NEXUS_PROTOCOL = "https"
+        NEXUS_PROTOCOL = "http"
         // Where your Nexus is running
-        NEXUS_URL = "nexus-master.telnetinfo.ca"
+        NEXUS_URL = "ec2-13-233-93-27.ap-south-1.compute.amazonaws.com:8081"
         // Repository where we will upload the artifact
-        NEXUS_REPOSITORY = "paid"
+        NEXUS_REPOSITORY = "spring3"
         // Jenkins credential id to authenticate to Nexus OSS
-        NEXUS_CREDENTIAL_ID = "nexus"
+        NEXUS_CREDENTIAL_ID = "nexus_credentials"
     }
     stages {
+        stage("clone code") {
+            steps {
+                script {
+                    // Let's clone the source
+                    git 'https://github.com/jmstechhome/spring3-mvc-maven-xml-hello-world.git';
+                }
+            }
+        }
         stage("mvn build") {
             steps {
                 script {
